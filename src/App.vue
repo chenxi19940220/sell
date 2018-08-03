@@ -37,9 +37,9 @@ export default {
     _getSeller () {
       axios.get('https://www.easy-mock.com/mock/5b61b78f2205a5414ac526b7/sell/data')
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.request.status === 200 && res.request.readyState === 4) {
-            console.log(res.data)
+            // console.log(res.data)
             this.seller = res.data.seller
           }
         })
