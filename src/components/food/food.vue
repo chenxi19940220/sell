@@ -109,7 +109,6 @@ export default {
       }
       this.$emit('add', event.target)
       Vue.set(this.food, 'count', 1)
-      console.log(event.target)
     },
     selectRating (type) {
       this.selectType = type

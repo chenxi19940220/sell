@@ -12,7 +12,7 @@
         <span class="tab-link">商家</span>
       </router-link>
     </div>
-    <router-view></router-view>
+    <router-view :seller="seller" :ratings="ratings"></router-view>
   </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
   },
   data () {
     return {
-      seller: {}
+      seller: {},
+      ratings: []
     }
   },
   created () {
@@ -41,6 +42,7 @@ export default {
           if (res.request.status === 200 && res.request.readyState === 4) {
             // console.log(res.data)
             this.seller = res.data.seller
+            this.ratings = res.data.ratings
           }
         })
         .catch((err) => {
