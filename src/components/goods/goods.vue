@@ -96,7 +96,6 @@ export default {
     this._getSeller()
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   },
-  mounted () {},
   methods: {
     selectMenu (index, event) {
       if (!event._constructed) {
@@ -111,10 +110,10 @@ export default {
         .then((res) => {
           // console.log(res)
           if (res.request.status === 200 && res.request.readyState === 4) {
-            console.log(res.data)
+            // console.log(res.data)
             this.seller = res.data.seller
             this.goods = res.data.goods
-            console.log(this.seller)
+            // console.log(this.seller)
             this.$nextTick(() => {
               this._initScroll()
               this._calculateHeight()
@@ -124,6 +123,13 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    selectFood (food, event) {
+      if (!event._constructed) {
+        return
+      }
+      this.selectedFood = food
+      this.$refs.food.show()
     },
     addFood (target) {
       this._drop(target)
@@ -144,6 +150,7 @@ export default {
       })
 
       this.foodsScroll.on('scroll', (pos) => {
+        // 判断滑动方向，避免下拉时分类高亮错误（如第一分类商品数量为1时，下拉使得第二分类高亮）
         if (pos.y <= 0) {
           this.scrollY = Math.abs(Math.round(pos.y))
         }
@@ -167,13 +174,6 @@ export default {
       let el = menuList[index]
       // console.log(menuList)
       this.menuScroll.scrollToElement(el, 300, 0, -100)
-    },
-    selectFood (food, event) {
-      if (!event._constructed) {
-        return
-      }
-      this.selectedFood = food
-      this.$refs.food.show()
     }
   },
   components: {
@@ -189,12 +189,12 @@ export default {
 
 .border-bottom
   &:before
-    border-color: rgba(7, 17, 27, 0.1);
+    border-color: rgba(7, 17, 27, 0.1)
 .goods
   display flex
   position absolute
-  top: 174px
-  bottom: 46px
+  top 174px
+  bottom 46px
   width 100%
   overflow hidden
   .menu-wrapper

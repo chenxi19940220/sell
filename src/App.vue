@@ -12,13 +12,16 @@
         <span class="tab-link">商家</span>
       </router-link>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view :seller="seller" :ratings="ratings"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import axios from 'axios'
 import MHeader from 'components/m-header/m-header'
+import { urlParse } from 'common/js/util'
 
 export default {
   name: 'App',
@@ -27,7 +30,13 @@ export default {
   },
   data () {
     return {
-      seller: {}
+      seller: {
+        id: (() => {
+          let queryParam = urlParse()
+          return queryParam.id
+        })()
+      },
+      ratings: []
     }
   },
   created () {
@@ -35,12 +44,15 @@ export default {
   },
   methods: {
     _getSeller () {
-      axios.get('https://www.easy-mock.com/mock/5b61b78f2205a5414ac526b7/sell/data')
+      axios.get('https://www.easy-mock.com/mock/5b61b78f2205a5414ac526b7/sell/data?id=' + this.seller.id)
         .then((res) => {
           // console.log(res)
           if (res.request.status === 200 && res.request.readyState === 4) {
             // console.log(res.data)
-            this.seller = res.data.seller
+            // this.seller = res.data.seller
+            this.ratings = res.data.ratings
+            this.seller = Object.assign({}, this.seller, res.data.seller)
+            // console.log(this.seller.id)
           }
         })
         .catch((err) => {

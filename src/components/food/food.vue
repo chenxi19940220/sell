@@ -1,5 +1,5 @@
 <template>
-  <transition>
+  <transition name="move">
     <div class="food" v-show="showFlag" ref="food">
       <div class="food-content">
         <div class="image-header">
@@ -20,7 +20,7 @@
           <div class="cartcontrol-wrapper">
             <cartcontrol :food="food"></cartcontrol>
           </div>
-          <transition>
+          <transition name="fade">
             <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
           </transition>
         </div>
@@ -109,7 +109,6 @@ export default {
       }
       this.$emit('add', event.target)
       Vue.set(this.food, 'count', 1)
-      console.log(event.target)
     },
     selectRating (type) {
       this.selectType = type
@@ -158,9 +157,9 @@ export default {
   width 100%
   background #fff
   transform translate3d(0, 0, 0)
-  &.v-enter-active, &.v-leave-active
+  &.move-enter-active, &.move-leave-active
     transition: all 0.2s linear
-  &.v-enter, &.v-leave-to
+  &.move-enter, &.move-leave-to
     transform translate3d(100%, 0, 0)
   .image-header
     position relative
@@ -231,9 +230,9 @@ export default {
       color #fff
       background rgb(0, 160, 220)
       opacity 1
-      &.v-enter-active, &.v-leave-active
+      &.fade-enter-active, &.fade-leave-active
         transition: all 0.2s
-      &.v-enter, &.v-leave-to
+      &.fade-enter, &.fade-leave-to
         opacity 0
         z-index: -1
   .info
