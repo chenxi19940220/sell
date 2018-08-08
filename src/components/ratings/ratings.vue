@@ -20,7 +20,7 @@
           </div>
           <div class="delivery-wrapper">
             <span class="title">送达时间</span>
-            <span class="deliveryTime">{{seller.deliveryTime}}分钟</span>
+            <span class="delivery">{{seller.deliveryTime}}分钟</span>
           </div>
         </div>
       </div>
@@ -79,22 +79,29 @@ export default {
       onlyContent: true
     }
   },
-  created () {
+  mounted () {
     this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.ratings, {
-        click: true
-      })
+      this._initScroll()
     })
   },
   methods: {
-    needShow(type, text) {
+    _initScroll () {
+      if (!this.scroll) {
+        this.scroll = new BScroll(this.$refs.ratings, {
+          click: true
+        })
+      } else {
+        this.scroll.refresh()
+      }
+    },
+    needShow (type, text) {
       if (this.onlyContent && !text) {
-        return false;
+        return false
       }
       if (this.selectType === ALL) {
-        return true;
+        return true
       } else {
-        return type === this.selectType;
+        return type === this.selectType
       }
     },
     selectRating (type) {
@@ -191,6 +198,7 @@ export default {
           font-size 12px
           color rgb(7, 17, 27)
         .delivery
+          margin-left: 12px
           font-size 12px
           color rgb(147, 153, 159)
   .rating-wrapper

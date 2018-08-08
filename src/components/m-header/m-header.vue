@@ -29,7 +29,7 @@
     <div class="background">
       <img :src="seller.avatar" alt="" width="100%" height="100%">
     </div>
-    <transition mode="out-in">
+    <transition mode="out-in" name="fade">
       <div v-show="detailShow" class="detail">
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
@@ -223,11 +223,11 @@ export default {
     overflow auto
     background rgba(7, 17, 27, 0.8)
     backdrop-filter: blur(10px)
-    &.v-enter, &.v-leave-to {
-        opacity: 0;
+    &.fade-enter, &.fade-leave-to {
+      opacity: 0;
     }
-    &.v-enter-active, &.v-leave-active {
-        transition: opacity 1s;
+    &.fade-enter-active, &.fade-leave-active {
+      transition: opacity 1s;
     }
     .detail-wrapper
       width 100%
